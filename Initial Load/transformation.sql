@@ -57,49 +57,7 @@ WHERE payment_type IS NOT NULL;
 SELECT * FROM ra_payment_method;
 
 INSERT INTO ra_time(value,day,month,year,day_of_the_week,week_year)
-SELECT result, day(CONVERT(result,DATETIME)), month(CONVERT(result,DATETIME)), year(CONVERT(result,DATETIME)), dayofweek(CONVERT(result,DATETIME)), week(CONVERT(result,DATETIME))
-FROM (
-
-SELECT submitted_date as result
-FROM northwind.purchase_orders
-
-UNION DISTINCT
-
-SELECT creation_date
-FROM northwind.purchase_orders
-
-UNION DISTINCT
-
-SELECT expected_date
-FROM northwind.purchase_orders
-
-UNION DISTINCT
-
-SELECT payment_date
-FROM northwind.purchase_orders
-
-UNION DISTINCT
-
-SELECT approved_date
-FROM northwind.purchase_orders
-
-UNION DISTINCT
-
-SELECT order_date
-FROM northwind.orders
-
-UNION DISTINCT
-
-SELECT shipped_Date
-FROM northwind.orders
-
-UNION DISTINCT
-
-SELECT paid_date
-FROM northwind.orders 
-) as x
-
-WHERE result IS NOT NULL;
+SELECT result, day(CONVERT(result,DATETIME)), month(CONVERT(result,DATETIME)), year(CONVERT(result,DATETIME)), dayofweek(CONVERT(result,DATETIME)), week(CONVERT(result,DATETIME)) FROM ( SELECT submitted_date as result FROM northwind.purchase_orders UNION DISTINCT SELECT creation_date FROM northwind.purchase_orders UNION DISTINCT SELECT expected_date FROM northwind.purchase_orders UNION DISTINCT SELECT payment_date FROM northwind.purchase_orders UNION DISTINCT SELECT approved_date FROM northwind.purchase_orders UNION DISTINCT SELECT order_date FROM northwind.orders UNION DISTINCT SELECT shipped_Date FROM northwind.orders UNION DISTINCT SELECT paid_date FROM northwind.orders ) as x WHERE result IS NOT NULL;
 
 SELECT * FROM ra_time;
 
